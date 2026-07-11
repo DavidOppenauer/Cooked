@@ -3,11 +3,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public event EventHandler OnSelectedCounterChanged;
-    // for extending the base capability of the eventsystem:
+    // Singleton Pattern, there is only ever gonna be one player so we can make it static
+    /*private static Player instance;
+    public static Player Instance
+    {
+        get { return instance; }
+        set { instance = value; }
+    }*/
+    // Same as this
+    public static Player Instance { get; private set; }
+    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+    // for extending a C# event to pass in some more data
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
-        public ClearCounter selectedCounter;
+        public ClearCounter selectedCounterArgs;
     }
 
     [SerializeField] private float moveSpeed = 7f;
@@ -23,6 +32,16 @@ public class Player : MonoBehaviour
     private bool isWalking;
     private Vector3 lastInteractDir;
     private ClearCounter selectedCounter;
+
+    private void Awake()
+    {
+        // Set the Singleton so everyone can grab something
+        if ( Instance != null)
+        {
+            Debug.LogError("There should only be one player, there is one too many");
+        }
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -62,20 +81,28 @@ public class Player : MonoBehaviour
                 // Has Clear Counter
                 if ( clearCounter != selectedCounter)
                 {
-                    selectedCounter = clearCounter;
+                    SetSelectedCounter(clearCounter);
                 }
             } // if it hits something but its not a clearCounter
             else
             {
-                selectedCounter = null;
+                SetSelectedCounter(null);
             }
             
         }// if the raycast doesnt hit anything there is no counter
         else
         {
-            selectedCounter = null;
+            SetSelectedCounter(null);
         }
-        Debug.Log(selectedCounter);
+    }
+
+    private void SetSelectedCounter(ClearCounter _selectedCounter)
+    {
+        this.selectedCounter = _selectedCounter;
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
+        {
+            selectedCounterArgs = _selectedCounter
+        });
     }
 
     public bool GetIsWalking()
