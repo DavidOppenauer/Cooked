@@ -33,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 234013289217066188}
   - {fileID: 2002465623002347477}
+  - {fileID: 7920299347797554590}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7150218649089127445
@@ -68,6 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be16340bab8e0f44ba7b79b3e3b9f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClearCounter
+  tomatoPrefab: {fileID: 7305460210599254304, guid: 5d77fe243ed80a049ba795d4a6c43329, type: 3}
+  counterTopPoint: {fileID: 7920299347797554590}
 --- !u!1 &3249992046733389645
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +118,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SelectedCounterVisual
   clearCounter: {fileID: 674055219245397485}
   selectedVisual: {fileID: 7382489164145348134}
+--- !u!1 &3964326168538954804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7920299347797554590}
+  m_Layer: 6
+  m_Name: CounterTopPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7920299347797554590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3964326168538954804}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.35, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8174551883289612539}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7372845608057206062
 GameObject:
   m_ObjectHideFlags: 0
