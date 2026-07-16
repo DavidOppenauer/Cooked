@@ -19,7 +19,7 @@ public class ClearCounter : BaseCounter
             {
                 // Player is not carrying anything nothing
             }
-        } 
+        }
         else // there is nothing on the player and he isnt carrying something give it to the player
         {
             // There is a kitchenObject on the counter

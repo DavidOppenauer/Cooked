@@ -15,18 +15,19 @@ public class ContainerCounter : BaseCounter
             // If player doesnt have a KitchenObject, Give kitchenObject to player
             if (!player.HasKitchenObject())
             {
+                KitchenObject.SpawnKitchenObject(kitchenObjectsSO, player);
                 // Debug.Log("Interact!");
                 // Access the prefab REFERENCE of the scriptable Object
                 //Transform kitchenObjectTransform = Instantiate(kitchenObjectsSO.prefab, counterTopPoint);
-                Transform kitchenObjectTransform = Instantiate(kitchenObjectsSO.prefab);
-                kitchenObjectTransform.localPosition = Vector3.zero;
+                //Transform kitchenObjectTransform = Instantiate(kitchenObjectsSO.prefab);
+                //kitchenObjectTransform.localPosition = Vector3.zero;
 
                 // All in one litarly just more compact...
                 // For this counter we want to give it to the player immeadiatly, not spawn it on Top
                 // kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(this);
 
-                kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(player);
-                // Player animation
+                //kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(player);
+                // Player animation here for example
                 OnPlayerGrabbedObject?.Invoke(this, EventArgs.Empty);
             }
 

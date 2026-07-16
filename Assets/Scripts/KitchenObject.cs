@@ -13,6 +13,13 @@ public class KitchenObject : MonoBehaviour
         return kitchenObjectsSO;
     }
 
+    public void DestroySelf()
+    {
+        kitchenObjectParent.ClearKitchenObject();
+        // Destroy(this); Doesnt appear to work, at least it doesnt delete the visual
+        Destroy(gameObject); // Ok so destroy this litarly only destroys this script/component while gameObject well destroys the entire gameobject with everything connected
+    }
+
     public void SetKitchenObjectParent(IKitchenObjectParent newKitchenObjectParent)
     {
         // If there is something on the current counter clear it
@@ -36,5 +43,14 @@ public class KitchenObject : MonoBehaviour
     public IKitchenObjectParent GetKitchenObjectParent()
     {
         return kitchenObjectParent;
+    }
+
+    public static KitchenObject SpawnKitchenObject(KitchenObjectsSO kitchenObjectSO, IKitchenObjectParent kitchenObjectParent)
+    {
+        Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
+        KitchenObject kitchenObject = kitchenObjectTransform.GetComponent<KitchenObject>();
+        kitchenObject.SetKitchenObjectParent(kitchenObjectParent);
+
+        return kitchenObject;
     }
 }

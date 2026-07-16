@@ -50,6 +50,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
     private void Start()
     {
         gameInput.OnInteractAction += GameInput_OnInterAction;
+        gameInput.OnInteractAlternateAction += GameInput_OnInterActionAlternate;
     }
 
     private void Update()
@@ -63,6 +64,13 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
         if (selectedCounter != null)
         {
             selectedCounter.Interact(this); // Is inside the new baseclass
+        }
+    }
+    private void GameInput_OnInterActionAlternate(object sender, EventArgs e)
+    {
+        if (selectedCounter != null)
+        {
+            selectedCounter.InteractAlternate(this); // Is inside the new baseclass
         }
     }
 
