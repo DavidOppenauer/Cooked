@@ -1,10 +1,43 @@
 using UnityEngine;
 
-public class ClearCounter : MonoBehaviour, IKitchenObjectParent
+public class ClearCounter : BaseCounter
 {
     [SerializeField] private KitchenObjectsSO kitchenObjectsSO;
-    [SerializeField] private Transform counterTopPoint;
-    private KitchenObject kitchenObject;
+
+
+    public override void Interact(Player player)
+    {
+        if (!HasKitchenObject())// Player is carraying something and theres nothing on the counter place it down
+        {
+            // There is no kitchenObject on the counter
+            if( player.HasKitchenObject())
+            {
+                // Player is carrying something
+                player.GetKitchenObject().SetKitchenObjectParent(this); // This is a good example of why its good to write clean code... Its so easy to scale now!
+            } 
+            else
+            {
+                // Player is not carrying anything nothing
+            }
+        } 
+        else // there is nothing on the player and he isnt carrying something give it to the player
+        {
+            // There is a kitchenObject on the counter
+            if (player.HasKitchenObject())
+            {
+                // player is carrying something
+            }
+            else
+            {
+                // Player is not carrying anything
+                GetKitchenObject().SetKitchenObjectParent(player);
+            }
+        }
+    }
+
+
+    /*[SerializeField] private Transform counterTopPoint;
+    private KitchenObject kitchenObject;*/
 
     //Testing
     /*[SerializeField] private ClearCounter secondClearCounter;
@@ -20,7 +53,7 @@ public class ClearCounter : MonoBehaviour, IKitchenObjectParent
         }
     }*/
 
-    public void Interact(Player player)
+    /*public override void Interact(Player player) // Overrides the base function
     {
         // If co kitchenObject, spawn it, if there aleady is one then do nothing
         if(kitchenObject == null)
@@ -48,29 +81,5 @@ public class ClearCounter : MonoBehaviour, IKitchenObjectParent
             kitchenObject.SetKitchenObjectParent(player);
         }
     }
-    // All the being a kitchenObject parent related stuff
-
-    public Transform GetKitchenObjectFollowTransform()
-    {
-        return counterTopPoint;
-    }
-    public void SetKitchenObject(KitchenObject _kitchenObject)
-    {
-        kitchenObject = _kitchenObject;
-    }
-
-    public KitchenObject GetKitchenObject()
-    {
-        return kitchenObject;
-    }
-
-    public void ClearKitchenObject()
-    {
-        kitchenObject = null;
-    }
-
-    public bool HasKitchenObject()
-    {
-        return kitchenObject != null;
-    }
+    */
 }

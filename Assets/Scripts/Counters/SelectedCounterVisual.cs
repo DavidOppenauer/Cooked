@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class SelectedCounterVisual : MonoBehaviour
 {
-    [SerializeField] private ClearCounter clearCounter;
-    [SerializeField] private GameObject selectedVisual;
+    [SerializeField] private BaseCounter baseCounter;
+    [SerializeField] private GameObject[] selectedVisualArray;
     private void Start() // External references should always be in start while setting the reffered varaibles should be in awake
     {
         // THIS NEEDS TO RUN AFTER THE PLAYER INSTANCE WAS SET IN AWAKE OTHERWISE IT COULD BE NULL HERE
@@ -13,7 +13,7 @@ public class SelectedCounterVisual : MonoBehaviour
 
     private void Player_OnSelectedCounterChanged(object sender, Player.OnSelectedCounterChangedEventArgs e)
     {
-        if(e.selectedCounterArgs == clearCounter)
+        if(e.selectedCounterArgs == baseCounter)
         {
             Show();
         }
@@ -25,10 +25,16 @@ public class SelectedCounterVisual : MonoBehaviour
     // Kind of overKill bro
     private void Show()
     {
-        selectedVisual.SetActive(true);
+        foreach( GameObject selectedVisual in selectedVisualArray)
+        {
+            selectedVisual.SetActive(true);
+        }
     }
     private void Hide()
     {
-        selectedVisual.SetActive(false);
+        foreach( GameObject selectedVisual in selectedVisualArray)
+        {
+            selectedVisual.SetActive(false);
+        }
     }
 }

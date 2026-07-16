@@ -16,7 +16,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
     // for extending a C# event to pass in some more data
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
-        public ClearCounter selectedCounterArgs;
+        public BaseCounter selectedCounterArgs;
     }
 
     [SerializeField] private float moveSpeed = 7f;
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
 
     private bool isWalking;
     private Vector3 lastInteractDir;
-    private ClearCounter selectedCounter;
+    private BaseCounter selectedCounter;
 
     // Interface specific stuff
     private KitchenObject kitchenObject;
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
     {
         if (selectedCounter != null)
         {
-            selectedCounter.Interact(this);
+            selectedCounter.Interact(this); // Is inside the new baseclass
         }
     }
 
@@ -80,12 +80,12 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
         if(Physics.Raycast(transform.position,  lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
         {
             // If the following statement is true
-            if(raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))// Tryget automatically handles null references
+            if(raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))// Tryget automatically handles null references
             {
                 // Has Clear Counter
-                if ( clearCounter != selectedCounter)
+                if ( baseCounter != selectedCounter)
                 {
-                    SetSelectedCounter(clearCounter);
+                    SetSelectedCounter(baseCounter);
                 }
             } // if it hits something but its not a clearCounter
             else
@@ -100,7 +100,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
         }
     }
 
-    private void SetSelectedCounter(ClearCounter _selectedCounter)
+    private void SetSelectedCounter(BaseCounter _selectedCounter)
     {
         this.selectedCounter = _selectedCounter;
         OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
@@ -133,7 +133,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
             // Attempt only x Movement
             Vector3 moveDirX = new Vector3(moveDir.x, 0, 0).normalized;
             // We try to fire the cast only in the direction of the x component of the moveDir Vector
-            canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance);
+            canMove = moveDir.x != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance);
 
             if (canMove)
             {
@@ -147,7 +147,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
                 // Attempt only Z movement
                 Vector3 moveDirZ = new Vector3(0, 0, moveDir.z).normalized;
                 // Fire only in the z component of the MovedirVector positive and negative is handled by WASD input.
-                canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance);
+                canMove = moveDir.z != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance);
 
                 if(canMove)
                 {
