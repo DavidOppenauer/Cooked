@@ -13,7 +13,7 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     }
     public virtual void InteractAlternate(Player player) // abstract is also fine
     {
-        Debug.LogError("BaseCounter.Interact();");
+        //Debug.LogError("BaseCounter.Interact();"); // Commented this out cause not every counter has an Alternate Interact
     }
 
     // All the being a kitchenObject parent related stuff

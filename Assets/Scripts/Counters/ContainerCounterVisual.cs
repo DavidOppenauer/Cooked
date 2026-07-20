@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ContainerFolderVisual : MonoBehaviour
+public class ContainerCounterVisual : MonoBehaviour
 {
     private const string OPEN_CLOSE = "OpenClose";
     private ContainerCounter containerCounter;
