@@ -143,7 +143,22 @@ public class StoveCounter : BaseCounter, IHasProgress
             if (player.HasKitchenObject())
             {
                 // player is carrying something
+                // player is carrying something
+                if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+                {
+                    // Player is holding a Plate
+                    // I like writing the comments like this it helps you to get on track faster
+                    if( plateKitchenObject.TryAddIngridient(GetKitchenObject().GetKitchenObjectsSO())) // We need to cast it so we can use the .AddIngridient function
+                    {
+                        GetKitchenObject().DestroySelf();
 
+                        state = State.Idle;
+                
+                        OnStateChanged?.Invoke(this, new OnOvenStateChangedEventArgs {_state = state} );
+                
+                        OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs{ progressNormalized = 0f });
+                    } 
+                }
             }
             else
             {
@@ -203,5 +218,10 @@ public class StoveCounter : BaseCounter, IHasProgress
             }
         }
         return null;
+    }
+
+    public bool IsFried()
+    {
+        return state == State.Fried;
     }
 }

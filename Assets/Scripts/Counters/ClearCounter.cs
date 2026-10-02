@@ -26,6 +26,44 @@ public class ClearCounter : BaseCounter
             if (player.HasKitchenObject())
             {
                 // player is carrying something
+                if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+                {
+                    // Player is holding a Plate
+                    // I like writing the comments like this it helps you to get on track faster
+                    if( plateKitchenObject.TryAddIngridient(GetKitchenObject().GetKitchenObjectsSO())) // We need to cast it so we can use the .AddIngridient function
+                    {
+                        GetKitchenObject().DestroySelf();
+                    } 
+                } 
+                else if (player.GetKitchenObject().TryGetDynamicPlate(out DynamicPlateKitchenObject dynamicPlateKitchenObject))
+                {
+                    // Player is holding a dynamic Plate
+                    if(dynamicPlateKitchenObject.TryAddIngridient(GetKitchenObject().GetKitchenObjectsSO()))
+                    {
+                        GetKitchenObject().DestroySelf();
+                    }
+                }
+                else
+                {
+                    // Player is not holding a plate
+                    if(GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObjectOnPlayer)) // This is in the context now below or at least inside the condition thats what out is for
+                    {
+                        // Counter is holding a plate
+                        if(plateKitchenObjectOnPlayer.TryAddIngridient(player.GetKitchenObject().GetKitchenObjectsSO()))
+                        {
+                            player.GetKitchenObject().DestroySelf();
+                        }
+                    }
+                    // Player is not holding a dynamicPlate
+                    if(GetKitchenObject().TryGetDynamicPlate(out DynamicPlateKitchenObject dynamicPlateKitchenObjectOnPlayer)) // This is in the context now below or at least inside the condition thats what out is for
+                    {
+                        // Counter is holding a dynamic plate
+                        if(dynamicPlateKitchenObjectOnPlayer.TryAddIngridient(player.GetKitchenObject().GetKitchenObjectsSO()))
+                        {
+                            player.GetKitchenObject().DestroySelf();
+                        }
+                    }
+                }
             }
             else
             {

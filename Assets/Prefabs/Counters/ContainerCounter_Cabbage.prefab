@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 518942723237087499, guid: 5e9caf4005fbf53428eecbcd2c07ee30, type: 3}
+      propertyPath: selectedVisualArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 518942723237087499, guid: 5e9caf4005fbf53428eecbcd2c07ee30, type: 3}
+      propertyPath: 'selectedVisualArray.Array.data[4]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2661548337694317873, guid: 5e9caf4005fbf53428eecbcd2c07ee30, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -52,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ContainerCounter_Cabbage
       objectReference: {fileID: 0}
+    - target: {fileID: 7727767639090392128, guid: 5e9caf4005fbf53428eecbcd2c07ee30, type: 3}
+      propertyPath: m_Name
+      value: SelectedCabbageCounter
+      objectReference: {fileID: 0}
     - target: {fileID: 7911745485844347131, guid: 5e9caf4005fbf53428eecbcd2c07ee30, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -61,7 +73,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: feb3761bb3fc3fa48a68bf737d1bc6cf, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 118365351344220468, guid: 5e9caf4005fbf53428eecbcd2c07ee30, type: 3}
+    - {fileID: 7673483111716327737, guid: 5e9caf4005fbf53428eecbcd2c07ee30, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e9caf4005fbf53428eecbcd2c07ee30, type: 3}

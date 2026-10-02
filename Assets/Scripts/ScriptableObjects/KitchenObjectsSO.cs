@@ -5,7 +5,7 @@ using UnityEngine;
 // Not a monobehaviour! Inherints from Scriptable Objects,
 // These are useful for stuff like Armors Weapons Ingredients, anything that shares behaviour essentially
 
-// To create a scriptable Objectyou need the following line which is an atribute?? I guess its SO specific
+// To create a scriptable Objectyou need the following line which, makes it show up the create workflow in the editor
 [CreateAssetMenu()]
 public class KitchenObjectsSO : ScriptableObject
 {

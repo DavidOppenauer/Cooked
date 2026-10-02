@@ -12,6 +12,8 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
     }*/
     // Same as this
     public static Player Instance { get; private set; }
+
+    public event EventHandler OnPickedSomething;
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     // for extending a C# event to pass in some more data
     public class OnSelectedCounterChangedEventArgs : EventArgs
@@ -61,6 +63,8 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
 
     private void GameInput_OnInterAction(object sender, EventArgs e)
     {
+        if (!GameManager.Instance.IsGamePlaying()) return; // Also valid
+        
         if (selectedCounter != null)
         {
             selectedCounter.Interact(this); // Is inside the new baseclass
@@ -68,9 +72,12 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
     }
     private void GameInput_OnInterActionAlternate(object sender, EventArgs e)
     {
-        if (selectedCounter != null)
+        if (GameManager.Instance.IsGamePlaying())
         {
-            selectedCounter.InteractAlternate(this); // Is inside the new baseclass
+            if (selectedCounter != null)
+            {
+                selectedCounter.InteractAlternate(this); // Probly so it knows which Player is Interacting
+            }
         }
     }
 
@@ -184,6 +191,10 @@ public class Player : MonoBehaviour, IKitchenObjectParent // With the beatiful I
     public void SetKitchenObject(KitchenObject _kitchenObject)
     {
         kitchenObject = _kitchenObject;
+        if (kitchenObject != null) // Can never be too safe I guess
+        {
+            OnPickedSomething?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public KitchenObject GetKitchenObject()

@@ -166,7 +166,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4589716710238282922, guid: c4e141bc61e807b4b832b850d92f5fd7, type: 3}
       propertyPath: m_Name
-      value: Selected
+      value: SelectedBinCounter
       objectReference: {fileID: 0}
     - target: {fileID: 4589716710238282923, guid: c4e141bc61e807b4b832b850d92f5fd7, type: 3}
       propertyPath: m_LocalScale.x

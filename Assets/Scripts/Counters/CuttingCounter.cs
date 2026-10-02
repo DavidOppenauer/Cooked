@@ -3,7 +3,21 @@ using UnityEngine;
 
 public class CuttingCounter : BaseCounter, IHasProgress
 {
+    /// <summary>
+    /// FINALYYYYYYYYYYYYYYYYYY THE EVENT PROBLEM IS ADRESSED WITH THE STATIC EVENT
+    /// Its an event that belongs to the entire class, so you dont need reference to every single instance
+    /// BUT
+    /// You need to reset them, its a whole thing 9:04:00
+    /// </summary>
+    
+    // Here it comes video 7:53:16
+    public static event EventHandler OnAnyCut; // When any instance cuts, fire this
 
+    new public static void ResetStaticData() // Clears all the listeners on the cutting counter
+    {
+        OnAnyCut = null;
+    }
+    // Here it ends
     public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
     public event EventHandler OnCut;
     [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray;
@@ -42,7 +56,16 @@ public class CuttingCounter : BaseCounter, IHasProgress
             if (player.HasKitchenObject())
             {
                 // player is carrying something
-
+                // player is carrying something
+                if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+                {
+                    // Player is holding a Plate
+                    // I like writing the comments like this it helps you to get on track faster
+                    if( plateKitchenObject.TryAddIngridient(GetKitchenObject().GetKitchenObjectsSO())) // We need to cast it so we can use the .AddIngridient function
+                    {
+                        GetKitchenObject().DestroySelf();
+                    } 
+                }
             }
             else
             {
@@ -59,6 +82,8 @@ public class CuttingCounter : BaseCounter, IHasProgress
             cuttingProgress++;
 
             OnCut?.Invoke(this, EventArgs.Empty);
+            Debug.Log(OnAnyCut.GetInvocationList().Length);
+            OnAnyCut?.Invoke(this, EventArgs.Empty); // When any instance cuts, fire this
             KitchenObjectsSO currentKitchenObjectSO = GetKitchenObject().GetKitchenObjectsSO();
             // Find out what to spawn
             // KitchenObjectsSO outPutKitchenObjectSO = GetOutPutForInput(player.GetKitchenObject()); <- maybe a thought for something else. bitch like what????

@@ -7,6 +7,9 @@ public class SelectedCounterVisual : MonoBehaviour
     [SerializeField] private GameObject[] selectedVisualArray;
     private void Start() // External references should always be in start while setting the reffered varaibles should be in awake
     {
+        /*Debug.Log($"Object: {gameObject.name}");
+        Debug.Log($"Array null? {selectedVisualArray == null}");
+        Debug.Log($"Length: {(selectedVisualArray == null ? -1 : selectedVisualArray.Length)}");*/
         // THIS NEEDS TO RUN AFTER THE PLAYER INSTANCE WAS SET IN AWAKE OTHERWISE IT COULD BE NULL HERE
         Player.Instance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
     }
@@ -32,6 +35,7 @@ public class SelectedCounterVisual : MonoBehaviour
     }
     private void Hide()
     {
+        //Debug.Log($"{gameObject.name}: selectedVisualArray is {(selectedVisualArray == null ? "NULL" : $"Length = {selectedVisualArray.Length}")}");
         foreach( GameObject selectedVisual in selectedVisualArray)
         {
             selectedVisual.SetActive(false);

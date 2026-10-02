@@ -45,6 +45,7 @@ public class KitchenObject : MonoBehaviour
         return kitchenObjectParent;
     }
 
+    // The static is the reason we can do this anywhere
     public static KitchenObject SpawnKitchenObject(KitchenObjectsSO kitchenObjectSO, IKitchenObjectParent kitchenObjectParent)
     {
         Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
@@ -52,5 +53,30 @@ public class KitchenObject : MonoBehaviour
         kitchenObject.SetKitchenObjectParent(kitchenObjectParent);
 
         return kitchenObject;
+    }
+
+    public bool TryGetPlate(out PlateKitchenObject plateKitchenObject)
+    {
+        if (this is PlateKitchenObject)
+        {
+            plateKitchenObject = this as PlateKitchenObject; // cast
+            return true;
+        } else
+        {
+            plateKitchenObject = null;
+            return false;
+        }
+    }
+    public bool TryGetDynamicPlate(out DynamicPlateKitchenObject dynamicPlateKitchenObject)
+    {
+        if (this is DynamicPlateKitchenObject)
+        {
+            dynamicPlateKitchenObject = this as DynamicPlateKitchenObject; // cast
+            return true;
+        } else
+        {
+            dynamicPlateKitchenObject = null;
+            return false;
+        }
     }
 }
